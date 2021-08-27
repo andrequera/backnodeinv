@@ -1,4 +1,4 @@
-const dbConfig = require("../config/db.config.js");
+const dbConfig = require("../../config/db.config");
 
 const Sequelize = require("sequelize");
 const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
@@ -19,6 +19,15 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
-db.tutorials = require("./tutorial.model.js")(sequelize, Sequelize);
+db.clientes = require("./cliente.model.js")(sequelize, Sequelize);
+db.cotizacion = require("./cotizacion.model.js")(sequelize, Sequelize);
+// db.cotizaciones.belongsTo(db.clientes, {
+//   foreignKey: "clienteId",
+//   as: "cliente",
+// });
+
+
+
+
 
 module.exports = db;

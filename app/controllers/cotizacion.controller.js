@@ -1,13 +1,13 @@
 const db = require("../models");
-const Cliente = db.clientes;
-// const Cotizacion = db.cotizaciones;
+// const Cliente = db.clientes;
+const Cotizacion = db.cotizaciones;
 const Op = db.Sequelize.Op;
 
 // Create and Save a new Tutorial
 exports.create = (req, res) => {
     //   aca van las cositas de validacion
     // Validate request
-    if (!(req.body.nombre || req.body.empresa || req.body.email || req.body.telefono)) {
+    if (!(req.body.producto || req.body.paletas)) {
         res.status(400).send({
             message: "Content can not be empty!"
         });
@@ -16,15 +16,17 @@ exports.create = (req, res) => {
 
 
     // Create a Tutorial
-    const cliente = {
-        nombre: req.body.nombre,
-        empresa: req.body.empresa,
-        email: req.body.email,
-        telefono: req.body.telefono
-    };
+    const cotizacion = {
+        producto: req.body.producto,
+        descripcion: req.body.descripcion,
+        paletas: req.body.paletas,
+        botellas: req.body.botellas,
+        sku: req.body.sku,
+        total: req.body.total,
+        };
 
     // Save Tutorial in the database
-    Cliente.create(cliente)
+    Cotizacion.create(cotizacion)
         .then(data => {
             res.send(data);
         })
@@ -40,8 +42,8 @@ exports.create = (req, res) => {
 
 // Retrieve all Tutorials from the database.
 exports.findAll = (req, res) => {
-    const nombre = req.query.nombre;
-    var condition = nombre ? { nombre: { [Op.like]: `%${nombre}%` } } : null;
+    const nproducto = req.query.nombre;
+    var condition = producto ? { producto: { [Op.like]: `%${producto}%` } } : null;
 
     Tutorial.findAll({ where: condition })
         .then(data => {
@@ -75,7 +77,7 @@ exports.findOne = (req, res) => {
 exports.update = (req, res) => {
     const id = req.params.id;
 
-    Cliente.update(req.body, {
+    Cotizacion.update(req.body, {
         where: { id: id }
     })
         .then(num => {
@@ -101,7 +103,7 @@ exports.update = (req, res) => {
 exports.delete = (req, res) => {
     const id = req.params.id;
 
-    Cliente.destroy({
+    Cotizacion.destroy({
         where: { id: id }
     })
         .then(num => {
@@ -124,7 +126,7 @@ exports.delete = (req, res) => {
 
 // Delete all Tutorials from the database.
 exports.deleteAll = (req, res) => {
-    cliente.destroy({
+    cotizacion.destroy({
         where: {},
         truncate: false
     })
@@ -141,7 +143,7 @@ exports.deleteAll = (req, res) => {
 
 // Find all published Tutorials
 exports.findAllPublished = (req, res) => {
-    Cliente.findAll({ where: { published: true } })
+    Cotizacion.findAll({ where: { published: true } })
         .then(data => {
             res.send(data);
         })

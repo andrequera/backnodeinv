@@ -1,15 +1,28 @@
 module.exports = (sequelize, Sequelize) => {
-    const Tutorial = sequelize.define("tutorial", {
-      title: {
+    const Cliente = sequelize.define("cliente", {
+      nombre: {
         type: Sequelize.STRING
       },
-      description: {
+      empresa: {
         type: Sequelize.STRING
       },
-      published: {
-        type: Sequelize.BOOLEAN
+      empresa: {
+        type: Sequelize.STRING
+      },
+      email: {
+        type: Sequelize.STRING
+      },
+      telefono: {
+        type: Sequelize.INTEGER
       }
     });
   
-    return Tutorial;
+    return Cliente;
   };
+
+  
+// Cliente.hasMany(Comment, { as: "comments" });
+// Comment.belongsTo(Tutorial, {
+//   foreignKey: "clienteId",
+//   as: "cliente",
+// });
