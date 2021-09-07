@@ -1,7 +1,7 @@
 const db = require("../models");
 const Cliente = db.clientes;
 // const Cotizacion = db.cotizaciones;
-const Cotizacion = db.pedidos;
+const Pedido = db.pedidos;
 const Op = db.Sequelize.Op;
 
 // Create and Save a new Tutorial
@@ -19,11 +19,11 @@ exports.create = (req, res) => {
     // Create a Tutorial
     const pedido = {
         nombre_cliente: req.body.nombre_cliente,
-        empresa: req.body.fecha,
-        email: req.body.sku,
-        telefono: req.body.producto,
-        email: req.body.paleta,
-        telefono: req.body.cantidad
+        fecha: req.body.fecha,
+        sku: req.body.sku,
+        producto: req.body.producto,
+        paleta: req.body.paleta,
+        cantidad: req.body.cantidad
     };
 
     // Save Tutorial in the database
