@@ -21,8 +21,3 @@ module.exports = (sequelize, Sequelize) => {
   };
 
   
-// Cliente.hasMany(Comment, { as: "comments" });
-// Comment.belongsTo(Tutorial, {
-//   foreignKey: "clienteId",
-//   as: "cliente",
-// });

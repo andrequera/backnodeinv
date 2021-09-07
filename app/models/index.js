@@ -20,12 +20,28 @@ db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
 db.clientes = require("./cliente.model.js")(sequelize, Sequelize);
-db.cotizacion = require("./cotizacion.model.js")(sequelize, Sequelize);
-// db.cotizaciones.belongsTo(db.clientes, {
-//   foreignKey: "clienteId",
-//   as: "cliente",
-// });
+db.cotizaciones = require("./cotizacion.model.js")(sequelize, Sequelize);
+db.pedidos = require("./pedido.model.js")(sequelize, Sequelize);
+db.productos = require("./producto.model.js")(sequelize, Sequelize);
 
+db.clientes.hasMany(db.cotizaciones, { as: "cotizaciones" });
+db.cotizaciones.belongsTo(db.clientes, {
+  foreignKey: "clienteId",
+  as: "cliente",
+})
+
+// Relacion muchos a muchos
+
+db.pedidos.belongsToMany(db.productos, {
+  through: "pedidos_productos",
+  as: "productos",
+  foreignKey: "pedido_id",
+});
+db.productos.belongsToMany(db.pedidos, {
+  through: "pedidos_productos",
+  as: "pedidos",
+  foreignKey: "producto_id",
+});
 
 
 
